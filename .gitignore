@@ -1,0 +1,6 @@
+node_modules/
+"temporary screenshots"/
+*.png
+nul
+.DS_Store
+AGENTS.md

@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Империя Блюдь — Кафе в Сысерти</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="Assets/Империя блюд лого.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+</head>
+    <body>
+        <!-- Preloader -->
+        <div id="preloader" class="fixed inset-0 z-[9999] flex items-center justify-center" style="background: #1C1517;">
+            <div class="text-center">
+                <img src="Assets/Империя блюд лого.svg" alt="Империя Блюд" class="w-32 h-32 animate-pulse-slow">
+                <p class="text-gold mt-4 text-lg font-medium tracking-wider" style="font-family: 'Montserrat', sans-serif;">Загрузка...</p>
+            </div>
+        </div>
+
+        <!-- Smoke Particles Container -->
+        <div id="smoke-container" class="fixed inset-0 pointer-events-none z-40"></div>
+
+        <!-- Custom Cursor (hidden on mobile) -->
+        <div id="cursor" class="hidden md:block">
+            <img src="Assets/cursor.svg" alt="" class="w-10 h-10">
+        </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-[55] bg-transparent backdrop-blur-sm pt-6">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img src="Assets/Империя блюд лого.svg" alt="Империя Блюдь" class="h-12">
+                    <span class="text-2xl font-black text-white" style="font-family: 'Montserrat', sans-serif;">Империя блюд</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#hero" class="nav-link hover:text-gold transition-colors">Главная</a>
+                    <a href="#about" class="nav-link hover:text-gold transition-colors">О нас</a>
+                    <a href="#menu" class="nav-link hover:text-gold transition-colors">Меню</a>
+                    <a href="#banquets" class="nav-link hover:text-gold transition-colors">Банкеты</a>
+                    <a href="#contacts" class="nav-link hover:text-gold transition-colors">Контакты</a>
+                    <button id="cart-btn" class="relative transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45">
+                        <svg class="w-10 h-10 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span id="cart-badge" class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold" style="display: none;">0</span>
+                    </button>
+                </div>
+                <div class="flex items-center gap-3 md:hidden">
+                    <button id="cart-btn-mobile" class="relative text-gold">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span id="cart-badge-mobile" class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold" style="display: none;">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gold text-2xl">☰</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-primary/95 backdrop-blur-md text-white z-40 hidden pt-16">
+        <button id="mobile-menu-close" class="absolute top-6 right-6 text-white text-3xl">&times;</button>
+        <div class="container mx-auto px-6">
+            <div class="space-y-4">
+                <a href="#hero" class="block py-3 hover:text-gold transition-colors text-2xl">Главная</a>
+                <a href="#about" class="block py-3 hover:text-gold transition-colors text-2xl">О нас</a>
+                <a href="#menu" class="block py-3 hover:text-gold transition-colors text-2xl">Меню</a>
+                <a href="#banquets" class="block py-3 hover:text-gold transition-colors text-2xl">Банкеты</a>
+                <a href="#contacts" class="block py-3 hover:text-gold transition-colors text-2xl">Контакты</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section with Slideshow -->
+        <section id="hero" class="relative min-h-screen overflow-hidden">
+            
+            <!-- Slideshow Background -->
+            <div id="hero-slides" class="absolute inset-0">
+                <div class="hero-slide active absolute inset-0" style="background: url('Assets/background.png') no-repeat center center; background-size: cover;"></div>
+                <div class="hero-slide absolute inset-0" style="background: url('Assets/background.png') no-repeat center center; background-size: cover;"></div>
+                <div class="hero-slide absolute inset-0" style="background: url('Assets/background.png') no-repeat center center; background-size: cover;"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-primary/30 via-primary/50 to-primary"></div>
+            </div>
+            
+            <!-- Slideshow Arrows - Moved below button -->
+            
+            <div class="relative z-10 h-screen flex flex-col-reverse md:flex-row items-center justify-center md:justify-between px-6 md:px-12 lg:px-20 py-32">
+                   
+                <div class="text-left w-full md:w-1/2 mb-8 md:mb-0">
+                    <h1 id="hero-title" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-4 md:mb-8 animate-fade-in tracking-wider" style="animation-delay: 0.5s; text-transform: uppercase;">
+                        Вкус восточного гостеприимства
+                    </h1>
+
+                    <p id="hero-subtitle" class="text-base sm:text-lg md:text-xl lg:text-2xl text-secondary mb-6 md:mb-12 animate-fade-in" style="animation-delay: 1s;">
+                        Где каждое блюдо становится искусством вкуса и достоинства
+                    </p>
+
+                    <div class="animate-fade-in" style="animation-delay: 1.5s;">
+                        <button id="book-table-btn" class="btn-gold text-lg sm:text-xl md:text-2xl px-6 sm:px-8 py-3 sm:py-4 hover:scale-105 transition-all duration-300">
+                            Забронировать стол
+                        </button>
+                        
+                        <!-- Slide Arrows under button -->
+                        <div class="flex gap-4 mt-6">
+                            <button id="slide-prev" class="w-12 h-12 flex items-center justify-center rounded-full bg-black/30 hover:bg-black/50 text-gold transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            </button>
+                            <button id="slide-next" class="w-12 h-12 flex items-center justify-center rounded-full bg-black/30 hover:bg-black/50 text-gold transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Image that changes with slides -->
+                <div class="w-full md:w-1/2 flex justify-center md:justify-end mb-8 md:mb-0">
+                    <img id="hero-image" src="Assets/tarelka.png" alt="" class="w-80 sm:w-[400px] md:w-[600px] lg:w-[800px] xl:w-[900px] h-auto animate-fade-in rotating-plate" style="animation-delay: 0.7s;">
+                </div>
+            </div>
+            
+            <!-- Ticker at bottom of hero -->
+            <div class="ticker-wrapper">
+                <div class="ticker">
+                    <div class="ticker-content">
+                        <span>Скидка 20% на бизнес-ланчи!</span>
+                        <span class="ticker-divider">|</span>
+                        <span>Домашние пельмени от шеф-повара</span>
+                        <span class="ticker-divider">|</span>
+                        <span>Забронируй банкет со скидкой 10%</span>
+                        <span class="ticker-divider">|</span>
+                        <span>Скидка 20% на бизнес-ланчи!</span>
+                        <span class="ticker-divider">|</span>
+                        <span>Домашние пельмени от шеф-повара</span>
+                        <span class="ticker-divider">|</span>
+                        <span>Забронируй банкет со скидкой 10%</span>
+                        <span class="ticker-divider">|</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="menu" class="py-20 px-6 relative">
+            <div class="container mx-auto">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gold mb-6 animate-fade-in">
+                        Меню
+                    </h2>
+                    <p class="text-xl text-secondary mb-8 animate-fade-in" style="animation-delay: 0.3s;">
+                        Традиции, качество, душевность — в каждой тарелке
+                    </p>
+                
+                <!-- Menu Layout: Tabs (Left) + Sections (Right) -->
+                <div class="flex flex-col md:flex-row gap-6 md:items-start w-full">
+                    
+                    <!-- Menu Tabs - Mobile: Horizontal Scroll, Desktop: Vertical Sticky -->
+                    <div id="menu-tabs-container" class="flex md:flex-col gap-2 md:gap-3 overflow-x-auto md:overflow-visible sticky top-[80px] z-[50] w-full md:w-56 flex-shrink-0 pb-2 md:pb-0 scrollbar-hide">
+                        <button class="menu-tab active whitespace-nowrap text-left text-lg py-3 px-4" data-target="hot">Горячие блюда</button>
+                        <button class="menu-tab whitespace-nowrap text-left text-lg py-3 px-4" data-target="grill">Мясо на огне</button>
+                        <button class="menu-tab whitespace-nowrap text-left text-lg py-3 px-4" data-target="salads">Салаты</button>
+                        <button class="menu-tab whitespace-nowrap text-left text-lg py-3 px-4" data-target="soups">Супы</button>
+                        <button class="menu-tab whitespace-nowrap text-left text-lg py-3 px-4" data-target="sides">Гарниры</button>
+                        <button class="menu-tab whitespace-nowrap text-left text-lg py-3 px-4" data-target="drinks">Напитки</button>
+                        <button class="menu-tab whitespace-nowrap text-left text-lg py-3 px-4" data-target="desserts">Десерты</button>
+                        <button class="menu-tab whitespace-nowrap text-left text-lg py-3 px-4" data-target="sauces">Соусы</button>
+                    </div>
+
+                    <!-- Menu Sections - Right Side (Flex Grow) -->
+                    <div class="menu-sections flex-grow w-full">
+                        
+                        <!-- Горячие блюда -->
+                        <section id="menu-hot" class="menu-section mb-16" style="scroll-margin-top: 100px;">
+                            <h3 class="text-3xl font-bold text-gold mb-6">Горячие блюда</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                                <div class="menu-item" data-tab="hot">
+                                    <img src="https://placehold.co/400x300" alt="Плов">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Плов (320 гр.)</h4>
+                                        <p class="text-secondary mb-3">Традиционный восточный плов</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="300">300₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item" data-tab="hot">
+                                    <img src="https://placehold.co/400x300" alt="Долма">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Долма (300 гр.)</h4>
+                                        <p class="text-secondary mb-3">Виноградные листья с мясной начинкой</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="300">300₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item" data-tab="hot">
+                                    <img src="https://placehold.co/400x300" alt="Манты">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Манты (320 гр.)</h4>
+                                        <p class="text-secondary mb-3">Паровые пельмени с мясом</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="400">400₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item" data-tab="hot">
+                                    <img src="https://placehold.co/400x300" alt="Лагман">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Лагман уйгурский (400 гр.)</h4>
+                                        <p class="text-secondary mb-3">Традиционный лагман с домашней лапшой</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="350">350₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Мясо на огне -->
+                        <section id="menu-grill" class="menu-section mb-16" style="scroll-margin-top: 100px;">
+                            <h3 class="text-3xl font-bold text-gold mb-6">Мясо на огне</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                                <div class="menu-item" data-tab="grill">
+                                    <img src="https://placehold.co/400x300" alt="Шашлык">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Шашлык</h4>
+                                        <p class="text-secondary mb-3">В ассортименте</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="400">400₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item" data-tab="grill">
+                                    <img src="https://placehold.co/400x300" alt="Люля-кебаб">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Люля-кебаб</h4>
+                                        <p class="text-secondary mb-3">Сочный фарш на шампуре</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="350">350₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Салаты -->
+                        <section id="menu-salads" class="menu-section mb-16" style="scroll-margin-top: 100px;">
+                            <h3 class="text-3xl font-bold text-gold mb-6">Салаты</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                                <div class="menu-item" data-tab="salads">
+                                    <img src="https://placehold.co/400x300" alt="Ачичук">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Ачичук</h4>
+                                        <p class="text-secondary mb-3">Традиционный: помидоры, лук, острый перец</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="200">200₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Супы -->
+                        <section id="menu-soups" class="menu-section mb-16" style="scroll-margin-top: 100px;">
+                            <h3 class="text-3xl font-bold text-gold mb-6">Супы</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                                <div class="menu-item" data-tab="soups">
+                                    <img src="https://placehold.co/400x300" alt="Шурпа">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Шурпа</h4>
+                                        <p class="text-secondary mb-3">Баранина/говядина с овощами</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="350">350₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item" data-tab="soups">
+                                    <img src="https://placehold.co/400x300" alt="Борщ">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Борщ</h4>
+                                        <p class="text-secondary mb-3">Традиционный русский борщ</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="280">280₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Гарниры -->
+                        <section id="menu-sides" class="menu-section mb-16" style="scroll-margin-top: 100px;">
+                            <h3 class="text-3xl font-bold text-gold mb-6">Гарниры</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                                <div class="menu-item" data-tab="sides">
+                                    <img src="https://placehold.co/400x300" alt="Картофель">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Картофель по-деревенски</h4>
+                                        <p class="text-secondary mb-3">Деревенский картофель</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="200">200₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item" data-tab="sides">
+                                    <img src="https://placehold.co/400x300" alt="Пельмени">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Пельмени (300 гр.)</h4>
+                                        <p class="text-secondary mb-3">Домашние пельмени</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="350">350₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Напитки -->
+                        <section id="menu-drinks" class="menu-section mb-16" style="scroll-margin-top: 100px;">
+                            <h3 class="text-3xl font-bold text-gold mb-6">Напитки</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                                <div class="menu-item" data-tab="drinks">
+                                    <img src="https://placehold.co/400x300" alt="Чай">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Чай</h4>
+                                        <p class="text-secondary mb-3">Чёрный, зелёный, с чабрецом</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="100">100₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="menu-item" data-tab="drinks">
+                                    <img src="https://placehold.co/400x300" alt="Кофе">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Кофе на вынос</h4>
+                                        <p class="text-secondary mb-3">Кофе, капучино, латте</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="150">150₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Десерты -->
+                        <section id="menu-desserts" class="menu-section mb-16" style="scroll-margin-top: 100px;">
+                            <h3 class="text-3xl font-bold text-gold mb-6">Десерты</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                                <div class="menu-item" data-tab="desserts">
+                                    <img src="https://placehold.co/400x300" alt="Пахлава">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Пахлава</h4>
+                                        <p class="text-secondary mb-3">Восточная сладость</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="180">180₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Соусы -->
+                        <section id="menu-sauces" class="menu-section mb-16" style="scroll-margin-top: 100px;">
+                            <h3 class="text-3xl font-bold text-gold mb-6">Соусы</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                                <div class="menu-item" data-tab="sauces">
+                                    <img src="https://placehold.co/400x300" alt="Шашлычный соус">
+                                    <div class="info">
+                                        <h4 class="text-xl font-bold mb-2">Шашлычный соус</h4>
+                                        <p class="text-secondary mb-3">К мясу</p>
+                                        <div class="flex justify-between items-center flex-wrap gap-2">
+                                            <span class="price-total text-gold font-bold text-2xl" data-price="50">50₽</span>
+                                            <div class="add-to-cart-block">
+                                                <button class="add-btn flex items-center justify-center rounded-lg transition-all hover:scale-110 hover:rotate-12 active:scale-95 active:rotate-45" style="background: #CFAF5F; color: #2C0E0E; width: 40px; height: 40px;" onclick="showCounter(this)">
+                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4"></path></svg>
+                                                </button>
+                                                <div class="counter-block hidden items-center gap-1">
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, -1)">−</button>
+                                                    <span class="counter-value text-center font-bold text-lg" style="width: 32px; color: #CFAF5F;">1</span>
+                                                    <button class="counter-btn flex items-center justify-center rounded-lg transition-colors" style="background: #CFAF5F; color: #2C0E0E; width: 36px; height: 36px; font-size: 18px; font-weight: bold;" onclick="changeQty(this, 1)">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Banquets Section -->
+
+
+        <section id="about" class="py-20 px-6 relative">
+            <div class="container mx-auto">
+                <div class="max-w-4xl mx-auto text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gold mb-6 animate-fade-in">
+                        О нашем кафе
+                    </h2>
+                    <p class="text-xl text-secondary mb-12 animate-fade-in" style="animation-delay: 0.3s;">
+                        Настоящая атмосферная кухня, где каждый день пропитан душой и теплом
+                    </p>
+                </div>
+
+                <div class="mt-12 md:mt-16">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                        <div class="bg-surface-elevated rounded-2xl md:rounded-3xl p-6 md:p-8 text-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3 md:mb-4 rounded-full bg-gold flex items-center justify-center">
+                                <svg class="w-8 h-8 md:w-10 md:h-10 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-lg md:text-xl font-bold text-gold mb-2 md:mb-3">Две традиции</h4>
+                            <p class="text-secondary text-sm md:text-base">Сочетание сытной Русской и колоритной Восточной кухни</p>
+                        </div>
+                        <div class="bg-surface-elevated rounded-2xl md:rounded-3xl p-6 md:p-8 text-center">
+                            <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3 md:mb-4 rounded-full bg-gold flex items-center justify-center">
+                                <svg class="w-8 h-8 md:w-10 md:h-10 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-lg md:text-xl font-bold text-gold mb-2 md:mb-3">Формат на любой случай</h4>
+                            <p class="text-secondary text-sm md:text-base">Быстрый перекус в Пельменной, сочный шашлык в Шашлычной или торжество в Банкетном зале</p>
+                        </div>
+                        <div class="bg-surface-elevated rounded-2xl md:rounded-3xl p-6 md:p-8 text-center sm:col-span-2 lg:col-span-1">
+                            <div class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-3 md:mb-4 rounded-full bg-gold flex items-center justify-center">
+                                <svg class="w-8 h-8 md:w-10 md:h-10 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-gold mb-3">Вечерняя программа</h4>
+                            <p class="text-secondary">Танцпол для отличного отдыха и вечерних развлечений</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="banquets" class="py-20 px-6 relative">
+            <div class="container mx-auto">
+                <div class="max-w-4xl mx-auto text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gold mb-6 animate-fade-in">
+                        Банкеты и корпоративы
+                    </h2>
+                    <p class="text-xl text-secondary mb-12 animate-fade-in" style="animation-delay: 0.3s;">
+                        Идеальное место для вашего торжества
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 animate-fade-in" style="animation-delay: 0.6s;">
+                    <div class="staggered-item h-full">
+                        <div class="bg-surface-elevated rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden h-full">
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary/90"></div>
+                            <div class="relative z-10 flex flex-col items-center text-center">
+                                <div class="w-16 h-16 md:w-20 md:h-20 mb-4 md:mb-6 rounded-full bg-gold/20 flex items-center justify-center">
+                                    <svg class="w-8 h-8 md:w-10 md:h-10 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl md:text-2xl font-bold text-gold mb-2 md:mb-4">Корпоративные обеды</h3>
+                                <p class="text-secondary text-sm md:text-base">
+                                    Комфортные залы для проведения корпоративных мероприятий и деловых встреч
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="staggered-item h-full">
+                        <div class="bg-surface-elevated rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden h-full">
+                            <div class="absolute inset-0 bg-gradient-to-t from-primary/90"></div>
+                            <div class="relative z-10 flex flex-col items-center text-center">
+                                <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gold/20 flex items-center justify-center">
+                                    <img src="Assets/wedding-rings.svg" alt="" class="w-10 h-10">
+                                </div>
+                                <h3 class="text-xl md:text-2xl font-bold text-gold mb-2 md:mb-4">Свадьбы на 20 человек</h3>
+                                <p class="text-secondary text-sm md:text-base">
+                                    Свадебные банкеты на 20 персон, специальные меню для торжеств
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacts Section -->
+        <section id="contacts" class="py-20 px-6 relative">
+            <div class="container mx-auto">
+                <div class="max-w-4xl mx-auto text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gold mb-6 animate-fade-in">
+                        Контакты
+                    </h2>
+                    <p class="text-xl text-secondary mb-12 animate-fade-in" style="animation-delay: 0.3s;">
+                        Рады приветствовать вас каждый день
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 animate-fade-in" style="animation-delay: 0.6s;">
+                    <div class="staggered-item">
+                        <div class="contact-info">
+                            <h3 class="text-xl md:text-2xl font-bold text-gold mb-4 md:mb-6">Узнать нас лучше</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-gold rounded-full flex items-center justify-center w-10 h-10 md:w-12 md:h-12 flex-shrink-0"></div>
+                                    <div class="text-sm md:text-base">
+                                        <p class="text-secondary font-medium">Свердловская область,</p>
+                                        <p class="text-secondary font-medium">Сысерь,</p>
+                                        <p class="text-secondary font-medium">Трактовая улица, 21б</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-gold rounded-full flex items-center justify-center w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
+                                        <svg class="w-5 h-5 md:w-6 md:h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="text-sm md:text-base">
+                                        <p class="text-secondary font-medium">Пн-вс 10:00 — 23:00</p>
+                                        <p class="text-secondary font-medium">Сб-Вс 10:00 — 02:00</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-4">
+                                    <div class="bg-gold rounded-full flex items-center justify-center w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
+                                        <svg class="w-5 h-5 md:w-6 md:h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="text-sm md:text-base">
+                                        <p class="text-secondary font-medium">Наши контакты:</p>
+                                        <a href="tel:+7 (996) 838-76-99" class="text-gold hover:underline">+7 (996) 838-76-99</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="staggered-item">
+                        <div class="contact-info">
+                            <h3 class="text-2xl font-bold text-gold mb-6">Забронировать стол</h3>
+                            <form id="booking-form" class="space-y-4">
+                                <input type="text" placeholder="Ваше имя" class="w-full px-4 py-4 bg-[#1C1517] rounded-lg text-white placeholder-secondary focus:outline-none focus:ring-2 focus:ring-gold text-lg">
+                                <input type="tel" placeholder="Телефон" class="w-full px-4 py-4 bg-[#1C1517] rounded-lg text-white placeholder-secondary focus:outline-none focus:ring-2 focus:ring-gold text-lg" onfocus="this.placeholder='+7'" onblur="this.placeholder='Телефон'">
+                                <input type="datetime-local" class="w-full px-4 py-4 bg-[#1C1517] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-gold text-lg">
+                                <div class="relative">
+                                    <select id="time-select" class="w-full px-4 py-4 bg-[#1C1517] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-gold text-lg appearance-none cursor-pointer">
+                                        <option value="">Выберите время</option>
+                                        <option value="12:00">12:00</option>
+                                        <option value="13:00">13:00</option>
+                                        <option value="14:00">14:00</option>
+                                        <option value="15:00">15:00</option>
+                                        <option value="18:00">18:00</option>
+                                        <option value="19:00">19:00</option>
+                                        <option value="20:00">20:00</option>
+                                        <option value="21:00">21:00</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn-gold w-full">Отправить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart Modal -->
+        <div id="cart-modal" class="hidden fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm flex items-stretch justify-end">
+            <div class="w-full md:w-[400px] lg:w-[450px] h-full max-h-[85vh] md:max-h-full rounded-t-2xl md:rounded-none md:rounded-l-2xl p-4 md:p-6 flex flex-col" style="background: linear-gradient(180deg, #1C1517 0%, #101216 100%); border: 1px solid rgba(207, 175, 95, 0.2);">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl sm:text-2xl font-bold text-gold">Корзина</h3>
+                    <button onclick="hideCartModal()" class="text-gold text-2xl sm:text-3xl hover:opacity-70">&times;</button>
+                </div>
+                <div id="cart-list" class="flex-1 overflow-y-auto space-y-3 max-h-[40vh]"></div>
+                <div id="cart-total" class="text-lg sm:text-xl font-bold text-gold mt-4 pt-3 border-t border-gold/20 flex justify-between items-center"></div>
+                <div id="checkout-form" class="mt-4 space-y-3">
+                    <div>
+                        <label class="block text-sm text-secondary mb-1">Номер телефона</label>
+                        <input type="tel" id="checkout-phone" placeholder="+7 (___) ___-__-__" 
+                               class="w-full px-3 py-2 md:px-4 md:py-3 rounded-lg bg-surface border border-gold/20 text-white text-base md:text-lg placeholder-secondary/50 focus:border-gold focus:outline-none transition-colors"
+                               style="font-family: 'Montserrat', sans-serif;">
+                        <p id="phone-error" class="text-red-500 text-xs mt-1 hidden">Введите номер телефона</p>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-start gap-2 cursor-pointer">
+                            <input type="checkbox" id="checkout-terms" class="mt-1 w-4 h-4 accent-gold">
+                            <span class="text-xs md:text-sm text-secondary">Согласен с условиями обслуживания</span>
+                        </label>
+                        <label class="flex items-start gap-2 cursor-pointer">
+                            <input type="checkbox" id="checkout-privacy" class="mt-1 w-4 h-4 accent-gold">
+                            <span class="text-xs md:text-sm text-secondary">Согласен на обработку персональных данных</span>
+                        </label>
+                        <p id="checkbox-error" class="text-red-500 text-xs hidden">Подтвердите согласия</p>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4">
+                    <button onclick="clearCart()" class="flex-1 py-2 sm:py-3 px-3 sm:px-4 rounded-lg border-2 border-gold/50 text-gold hover:bg-gold/10 transition-colors text-sm sm:text-base">Очистить</button>
+                    <button class="btn-gold flex-1 text-sm sm:text-base py-2 sm:py-3">Оформить</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Modal -->
+        <div id="booking-modal" class="hidden fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm flex items-stretch justify-end">
+            <div class="w-full md:w-[400px] lg:w-[450px] h-full max-h-[85vh] md:max-h-full rounded-t-2xl md:rounded-none md:rounded-l-2xl p-4 md:p-6 flex flex-col overflow-y-auto" style="background: linear-gradient(180deg, #1C1517 0%, #101216 100%); border: 1px solid rgba(207, 175, 95, 0.2);">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl sm:text-2xl font-bold text-gold">Забронировать стол</h3>
+                    <button onclick="hideBookingModal()" class="text-gold text-2xl sm:text-3xl hover:opacity-70">&times;</button>
+                </div>
+                <form id="booking-form-modal" class="space-y-4">
+                    <input type="text" id="booking-name" placeholder="Ваше имя" class="w-full px-4 py-4 bg-[#1C1517] rounded-lg text-white placeholder-secondary focus:outline-none focus:ring-2 focus:ring-gold text-lg">
+                    <input type="tel" id="booking-phone" placeholder="Телефон" class="w-full px-4 py-4 bg-[#1C1517] rounded-lg text-white placeholder-secondary focus:outline-none focus:ring-2 focus:ring-gold text-lg" onfocus="this.placeholder='+7'" onblur="this.placeholder='Телефон'">
+                    <input type="datetime-local" id="booking-date" class="w-full px-4 py-4 bg-[#1C1517] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-gold text-lg">
+                    <div class="relative">
+                        <select id="booking-time" class="w-full px-4 py-4 bg-[#1C1517] rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-gold text-lg appearance-none cursor-pointer">
+                            <option value="">Выберите время</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="18:00">18:00</option>
+                            <option value="19:00">19:00</option>
+                            <option value="20:00">20:00</option>
+                            <option value="21:00">21:00</option>
+                        </select>
+                        <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                    <button type="submit" class="btn-gold w-full">Отправить</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+    <footer class="py-8 md:py-12 px-4 md:px-6 bg-surface-elevated">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-4 md:gap-0">
+                <div class="mb-4 md:mb-0">
+                    <img src="Assets/Империя блюд лого.svg" alt="Империя Блюдь" class="h-10 md:h-12 mx-auto md:mx-0 mb-2">
+                    <p class="text-secondary text-sm">Свердловская область, Сысерь, Трактовая улица, 21б</p>
+                </div>
+                <div class="flex flex-wrap justify-center md:flex-nowrap items-center gap-4 md:gap-6 md:space-x-8">
+                    <a href="#" class="text-secondary hover:text-gold transition-colors text-sm">Конфиденциальность</a>
+                    <a href="#" class="text-secondary hover:text-gold transition-colors text-sm">О компании</a>
+                    <a href="#" class="text-secondary hover:text-gold transition-colors text-sm">Карта сайта</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu
+        var mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        var mobileMenu = document.getElementById('mobile-menu');
+        var mobileMenuClose = document.getElementById('mobile-menu-close');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        if (mobileMenuClose && mobileMenu) {
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        }
+
+        var mobileLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
+        for (var i = 0; i < mobileLinks.length; i++) {
+            mobileLinks[i].addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        }
+
+        // Smooth Scrolling
+        var anchorLinks = document.querySelectorAll('a[href^="#"]');
+        for (var i = 0; i < anchorLinks.length; i++) {
+            anchorLinks[i].addEventListener('click', function(e) {
+                e.preventDefault();
+                var href = this.getAttribute('href');
+                var target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        }
+
+        // Menu Tabs - Scroll to Section
+        var menuTabs = document.querySelectorAll('.menu-tab');
+        var menuSections = document.querySelectorAll('.menu-section');
+        var menuTabsContainer = document.getElementById('menu-tabs-container');
+
+        for (var i = 0; i < menuTabs.length; i++) {
+            menuTabs[i].addEventListener('click', function(e) {
+                e.preventDefault();
+                var target = this.getAttribute('data-target');
+                var targetId = 'menu-' + target;
+                var targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                // Update active tab
+                for (var j = 0; j < menuTabs.length; j++) {
+                    menuTabs[j].classList.remove('active');
+                }
+                this.classList.add('active');
+                
+                // Auto-scroll tab into view on mobile
+                if (window.innerWidth < 768 && menuTabsContainer) {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            });
+        }
+
+        // Intersection Observer for active tab on scroll
+        if (menuSections.length > 0) {
+            var observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            };
+
+            var sectionObserver = new IntersectionObserver(function(entries) {
+                for (var i = 0; i < entries.length; i++) {
+                    var entry = entries[i];
+                    if (entry.isIntersecting) {
+                        var sectionId = entry.target.id.replace('menu-', '');
+                        
+                        // Update active tab
+                        for (var j = 0; j < menuTabs.length; j++) {
+                            if (menuTabs[j].getAttribute('data-target') === sectionId) {
+                                menuTabs[j].classList.add('active');
+                                // Auto-scroll active tab into view on mobile
+                                if (window.innerWidth < 768 && menuTabsContainer) {
+                                    menuTabs[j].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                                }
+                            } else {
+                                menuTabs[j].classList.remove('active');
+                            }
+                        }
+                    }
+                }
+            }, observerOptions);
+
+            for (var i = 0; i < menuSections.length; i++) {
+                sectionObserver.observe(menuSections[i]);
+            }
+        }
+
+        // Form Submission
+        var bookingForm = document.getElementById('booking-form');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                var submitBtn = bookingForm.querySelector('button[type="submit"]');
+                if (!submitBtn) return;
+                
+                var originalText = submitBtn.textContent;
+                submitBtn.innerHTML = '<div class="spinner"></div>';
+                submitBtn.disabled = true;
+
+                setTimeout(function() {
+                    submitBtn.textContent = 'Заявка отправлена!';
+                    submitBtn.disabled = false;
+
+                    setTimeout(function() {
+                        submitBtn.textContent = originalText;
+                    }, 3000);
+                }, 1500);
+            });
+        }
+
+        // Scroll Animations
+        var staggerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        var staggerObserver = new IntersectionObserver(function(entries) {
+            for (var i = 0; i < entries.length; i++) {
+                if (entries[i].isIntersecting) {
+                    entries[i].target.classList.add('visible');
+                }
+            }
+        }, staggerOptions);
+
+        var staggeredItems = document.querySelectorAll('.staggered-item');
+        for (var i = 0; i < staggeredItems.length; i++) {
+            staggerObserver.observe(staggeredItems[i]);
+        }
+
+        // Custom Cursor
+        var cursor = document.getElementById('cursor');
+        
+        document.addEventListener('mousemove', function(e) {
+            if (cursor) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+
+        var interactiveEls = document.querySelectorAll('a, button');
+        for (var i = 0; i < interactiveEls.length; i++) {
+            interactiveEls[i].addEventListener('mouseenter', function() {
+                if (cursor) cursor.style.transform = 'translate(-50%, -50%) scale(1.2)';
+            });
+            interactiveEls[i].addEventListener('mouseleave', function() {
+                if (cursor) cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        }
+
+        // Plate smooth rotation
+        var plate = document.querySelector('#hero .rotating-plate');
+        if (plate) {
+            plate.style.animation = 'none';
+            var angle = 0;
+            var speed = 20;
+            var targetSpeed = 20;
+            var lastTime = performance.now();
+
+            function animate() {
+                var now = performance.now();
+                var delta = (now - lastTime) / 1000;
+                lastTime = now;
+
+                angle += (360 / speed) * delta;
+                if (angle >= 360) angle -= 360;
+
+                var diff = targetSpeed - speed;
+                speed += diff * 0.05;
+
+                plate.style.transform = 'rotate(' + angle + 'deg)';
+                requestAnimationFrame(animate);
+            }
+
+            plate.addEventListener('mouseenter', function() { targetSpeed = 300; });
+            plate.addEventListener('mouseleave', function() { targetSpeed = 20; });
+
+            requestAnimationFrame(animate);
+        }
+
+        // Add to cart functionality
+        var cartTotalCount = 0;
+        var cartItems = {};
+        
+        function showCounter(btn) {
+            var block = btn.closest('.add-to-cart-block');
+            var card = block.closest('.menu-item');
+            var name = card.querySelector('h4').textContent;
+            var priceText = card.querySelector('.price-total').getAttribute('data-price');
+            var price = parseInt(priceText);
+            
+            block.querySelector('.add-btn').classList.add('hidden');
+            block.querySelector('.counter-block').classList.remove('hidden');
+            block.querySelector('.counter-block').classList.add('flex');
+            
+            cartTotalCount++;
+            cartItems[name] = { price: price, qty: 1 };
+            updateCartBadge();
+            updateCardTotal(card, 1);
+        }
+        
+        function changeQty(btn, delta) {
+            var block = btn.closest('.add-to-cart-block');
+            var counter = block.querySelector('.counter-block');
+            var valueEl = counter.querySelector('.counter-value');
+            var addBtn = block.querySelector('.add-btn');
+            var card = block.closest('.menu-item');
+            var name = card.querySelector('h4').textContent;
+            
+            var value = parseInt(valueEl.textContent);
+            value = value + delta;
+            
+            if (value <= 0) {
+                counter.classList.add('hidden');
+                counter.classList.remove('flex');
+                addBtn.classList.remove('hidden');
+                cartTotalCount--;
+                delete cartItems[name];
+                updateCartBadge();
+                updateCardTotal(card, 0);
+            } else {
+                valueEl.textContent = value;
+                cartTotalCount += delta;
+                cartItems[name].qty = value;
+                updateCartBadge();
+                updateCardTotal(card, value);
+            }
+        }
+        
+        function updateCartBadge() {
+            var badge = document.getElementById('cart-badge');
+            var badgeMobile = document.getElementById('cart-badge-mobile');
+            if (badge) {
+                badge.textContent = cartTotalCount;
+                badge.style.display = cartTotalCount > 0 ? 'flex' : 'none';
+            }
+            if (badgeMobile) {
+                badgeMobile.textContent = cartTotalCount;
+                badgeMobile.style.display = cartTotalCount > 0 ? 'flex' : 'none';
+            }
+        }
+        
+        function updateCardTotal(card, qty) {
+            var priceEl = card.querySelector('.price-total');
+            var price = parseInt(priceEl.getAttribute('data-price'));
+            var total = price * qty;
+            
+            if (qty > 0) {
+                priceEl.textContent = total + '₽';
+            } else {
+                priceEl.textContent = price + '₽';
+            }
+        }
+        
+        // Cart modal
+        function showCartModal() {
+            var modal = document.getElementById('cart-modal');
+            var list = document.getElementById('cart-list');
+            var totalEl = document.getElementById('cart-total');
+            if (!modal || !list || !totalEl) return;
+            
+            var totalSum = 0;
+            list.innerHTML = '';
+            
+            for (var name in cartItems) {
+                var item = cartItems[name];
+                totalSum += item.price * item.qty;
+                list.innerHTML += 
+                    '<div class="flex items-center justify-between py-3 px-3 rounded-lg bg-white/5">' +
+                        '<div class="flex-1">' +
+                            '<p class="text-white font-medium">' + name + '</p>' +
+                            '<p class="text-gold text-sm">' + item.price + '₽ × ' + item.qty + ' = ' + (item.price * item.qty) + '₽</p>' +
+                        '</div>' +
+                        '<div class="flex items-center gap-2">' +
+                            '<button onclick="changeCartQty(\'' + name + '\', -1)" class="w-8 h-8 rounded-full bg-gold/20 text-gold flex items-center justify-center hover:bg-gold/30">−</button>' +
+                            '<span class="w-8 text-center text-gold font-bold">' + item.qty + '</span>' +
+                            '<button onclick="changeCartQty(\'' + name + '\', 1)" class="w-8 h-8 rounded-full bg-gold/20 text-gold flex items-center justify-center hover:bg-gold/30">+</button>' +
+                            '<button onclick="removeFromCart(\'' + name + '\')" class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center hover:bg-red-500/30 ml-2">×</button>' +
+                        '</div>' +
+                    '</div>';
+            }
+            
+            if (Object.keys(cartItems).length === 0) {
+                list.innerHTML = '<p class="text-center text-secondary py-8">Корзина пуста</p>';
+            }
+            
+            totalEl.innerHTML = '<span>Итого:</span><span>' + totalSum + '₽</span>';
+            modal.classList.remove('hidden');
+        }
+        
+        function changeCartQty(name, delta) {
+            if (cartItems[name]) {
+                cartItems[name].qty += delta;
+                cartTotalCount += delta;
+                
+                if (cartItems[name].qty <= 0) {
+                    delete cartItems[name];
+                }
+                
+                updateCartBadge();
+                showCartModal();
+                updateAllCards();
+            }
+        }
+        
+        function removeFromCart(name) {
+            if (cartItems[name]) {
+                cartTotalCount -= cartItems[name].qty;
+                delete cartItems[name];
+                updateCartBadge();
+                showCartModal();
+                updateAllCards();
+            }
+        }
+        
+        function clearCart() {
+            cartItems = {};
+            cartTotalCount = 0;
+            updateCartBadge();
+            showCartModal();
+            updateAllCards();
+        }
+        
+        function updateAllCards() {
+            var menuItems = document.querySelectorAll('.menu-item');
+            for (var i = 0; i < menuItems.length; i++) {
+                var card = menuItems[i];
+                var name = card.querySelector('h4').textContent;
+                var priceEl = card.querySelector('.price-total');
+                var price = parseInt(priceEl.getAttribute('data-price'));
+                
+                if (cartItems[name]) {
+                    var qty = cartItems[name].qty;
+                    priceEl.textContent = (price * qty) + '₽';
+                    var block = card.querySelector('.add-to-cart-block');
+                    block.querySelector('.add-btn').classList.add('hidden');
+                    block.querySelector('.counter-block').classList.remove('hidden');
+                    block.querySelector('.counter-block').classList.add('flex');
+                    block.querySelector('.counter-value').textContent = qty;
+                } else {
+                    priceEl.textContent = price + '₽';
+                    var block = card.querySelector('.add-to-cart-block');
+                    block.querySelector('.add-btn').classList.remove('hidden');
+                    block.querySelector('.counter-block').classList.add('hidden');
+                    block.querySelector('.counter-block').classList.remove('flex');
+                }
+            }
+        }
+        
+        function hideCartModal() {
+            var modal = document.getElementById('cart-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+        
+        // Close cart when clicking outside on mobile
+        document.getElementById('cart-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideCartModal();
+            }
+        });
+        
+        var cartBtn = document.getElementById('cart-btn');
+        if (cartBtn) {
+            cartBtn.addEventListener('click', function() {
+                showCartModal();
+            });
+        }
+        
+        var cartBtnMobile = document.getElementById('cart-btn-mobile');
+        if (cartBtnMobile) {
+            cartBtnMobile.addEventListener('click', function() {
+                showCartModal();
+            });
+        }
+        
+        // Booking modal
+        var bookTableBtn = document.getElementById('book-table-btn');
+        var bookingModal = document.getElementById('booking-modal');
+        
+        if (bookTableBtn && bookingModal) {
+            bookTableBtn.addEventListener('click', function() {
+                bookingModal.classList.remove('hidden');
+            });
+        }
+        
+        function hideBookingModal() {
+            if (bookingModal) bookingModal.classList.add('hidden');
+        }
+        
+        document.getElementById('booking-modal').addEventListener('click', function(e) {
+            if (e.target === this) hideBookingModal();
+        });
+        
+        document.getElementById('booking-form-modal').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var bookingData = {
+                name: document.getElementById('booking-name').value,
+                phone: document.getElementById('booking-phone').value,
+                date: document.getElementById('booking-date').value,
+                time: document.getElementById('booking-time').value
+            };
+            console.log('Бронирование:', bookingData);
+            alert('Бронирование отправлено! Данные в консоли.');
+            hideBookingModal();
+        });
+        
+        // Checkout form validation
+        var checkoutBtn = document.querySelector('#cart-modal .btn-gold');
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener('click', function() {
+                var phone = document.getElementById('checkout-phone');
+                var terms = document.getElementById('checkout-terms');
+                var privacy = document.getElementById('checkout-privacy');
+                var phoneError = document.getElementById('phone-error');
+                var checkboxError = document.getElementById('checkbox-error');
+                
+                var isValid = true;
+                
+                var phoneValue = phone.value.replace(/\D/g, '');
+                if (phoneValue.length < 11) {
+                    phoneError.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    phoneError.classList.add('hidden');
+                }
+                
+                if (!terms.checked || !privacy.checked) {
+                    checkboxError.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    checkboxError.classList.add('hidden');
+                }
+                
+                if (isValid) {
+                    var orderData = {
+                        phone: phone.value,
+                        termsAgreed: terms.checked,
+                        privacyAgreed: privacy.checked,
+                        items: Object.keys(cartItems).map(function(name) {
+                            return { name: name, qty: cartItems[name].qty, price: cartItems[name].price };
+                        })
+                    };
+                    console.log('Данные заказа:', orderData);
+                    alert('Заказ оформлен! Данные в консоли.');
+                }
+            });
+        }
+        
+        // Smoke effect behind cursor
+        var smokeContainer = document.getElementById('smoke-container');
+        var lastSmokeTime = 0;
+        var smokeInterval = 50;
+        
+        document.addEventListener('mousemove', function(e) {
+            if (!smokeContainer) return;
+            var now = Date.now();
+            if (now - lastSmokeTime > smokeInterval) {
+                lastSmokeTime = now;
+                
+                var smoke = document.createElement('div');
+                smoke.className = 'smoke-particle';
+                smoke.style.left = (e.clientX - 10) + 'px';
+                smoke.style.top = (e.clientY - 10) + 'px';
+                smokeContainer.appendChild(smoke);
+                
+                setTimeout(function() {
+                    smoke.remove();
+                }, 1500);
+            }
+        });
+
+        // Hide preloader
+        setTimeout(function() {
+            var preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+            }
+        }, 1000);
+
+        // Make all menu items visible
+        var allMenuItems = document.querySelectorAll('.menu-item');
+        for (var i = 0; i < allMenuItems.length; i++) {
+            allMenuItems[i].classList.add('visible');
+        }
+
+        // Hero Slideshow
+        var heroSlides = document.querySelectorAll('.hero-slide');
+        var slideDots = document.querySelectorAll('.slide-dot');
+        var slidePrev = document.getElementById('slide-prev');
+        var slideNext = document.getElementById('slide-next');
+        var heroImage = document.getElementById('hero-image');
+        var heroTitle = document.getElementById('hero-title');
+        var heroSubtitle = document.getElementById('hero-subtitle');
+        var currentSlide = 0;
+        var slideInterval = 5000;
+
+        var slideData = [
+            { image: 'Assets/tarelka.png', title: 'Вкус восточного гостеприимства', subtitle: 'Где каждое блюдо становится искусством вкуса и достоинства' },
+            { image: 'Assets/Pelm.png', title: 'Русская кухня с душой', subtitle: 'Самолепные пельмени по старинным рецептам — гордость нашего дома. Каждое блюдо — это дань уважения традициям и вашим вкусам.' },
+            { image: 'Assets/plov.png', title: 'Плов — сердце восточного стола', subtitle: 'Томительное мясо, золотистый рис, пряный аромат — всё, чтобы разделить искреннюю заботу.' }
+        ];
+
+        function showSlide(index) {
+            for (var i = 0; i < heroSlides.length; i++) {
+                if (i === index) {
+                    heroSlides[i].classList.add('active');
+                } else {
+                    heroSlides[i].classList.remove('active');
+                }
+            }
+            for (var i = 0; i < slideDots.length; i++) {
+                if (i === index) {
+                    slideDots[i].classList.add('bg-gold');
+                    slideDots[i].classList.remove('bg-gold/50');
+                } else {
+                    slideDots[i].classList.remove('bg-gold');
+                    slideDots[i].classList.add('bg-gold/50');
+                }
+            }
+            if (heroImage && slideData[index]) {
+                heroImage.src = slideData[index].image;
+                if (heroTitle) heroTitle.textContent = slideData[index].title;
+                if (heroSubtitle) heroSubtitle.textContent = slideData[index].subtitle;
+            }
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            var next = (currentSlide + 1) % heroSlides.length;
+            showSlide(next);
+        }
+
+        function prevSlide() {
+            var prev = (currentSlide - 1 + heroSlides.length) % heroSlides.length;
+            showSlide(prev);
+        }
+
+        var slideTimer = setInterval(nextSlide, slideInterval);
+
+        for (var i = 0; i < slideDots.length; i++) {
+            (function(index) {
+                slideDots[i].addEventListener('click', function() {
+                    clearInterval(slideTimer);
+                    showSlide(index);
+                    slideTimer = setInterval(nextSlide, slideInterval);
+                });
+            })(i);
+        }
+
+        if (slidePrev) {
+            slidePrev.addEventListener('click', function() {
+                clearInterval(slideTimer);
+                prevSlide();
+                slideTimer = setInterval(nextSlide, slideInterval);
+            });
+        }
+
+        if (slideNext) {
+            slideNext.addEventListener('click', function() {
+                clearInterval(slideTimer);
+                nextSlide();
+                slideTimer = setInterval(nextSlide, slideInterval);
+            });
+        }
+
+        if (heroSlides.length > 0) {
+            showSlide(0);
+        }
+    </script>
+
+    <!-- Fake Cookie Banner -->
+    <div id="fake-cookie" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; background: linear-gradient(135deg, #1C1517 0%, #2C1810 100%); border-top: 2px solid #CFAF5F; transform: translateY(100%); transition: transform 0.5s ease-out;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center;">
+            <p style="color: #A09888; font-size: 13px;">Мы используем файлы cookie для улучшения вашего опыта. Продолжая использовать сайт, вы соглашаетесь с использованием cookie.</p>
+            <button id="fake-cookie-accept" class="btn-gold" style="padding: 10px 32px; font-size: 14px; white-space: nowrap; width: auto;">Принять</button>
+        </div>
+    </div>
+
+    <style>
+        @media (min-width: 768px) {
+            #fake-cookie > div {
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                text-align: left !important;
+                gap: 16px !important;
+            }
+            #fake-cookie > div > p {
+                flex: 1 !important;
+                font-size: 14px !important;
+            }
+            #fake-cookie > div > button {
+                width: auto !important;
+            }
+        }
+    </style>
+
+    <script>
+        (function() {
+            var banner = document.getElementById('fake-cookie');
+            var btn = document.getElementById('fake-cookie-accept');
+            
+            setTimeout(function() {
+                banner.style.transform = 'translateY(0)';
+            }, 500);
+            
+            btn.addEventListener('click', function() {
+                banner.style.transform = 'translateY(100%)';
+            });
+        })();
+    </script>
+</body>
+</html>
